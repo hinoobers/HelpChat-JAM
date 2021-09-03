@@ -1,0 +1,7 @@
+main: org.hinoob.ParkourPlugin
+version: 0.1
+name: ParkourPlugin
+
+commands:
+  parkour:
+    aliases: [p]

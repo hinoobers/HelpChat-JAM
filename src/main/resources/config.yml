@@ -1,0 +1,11 @@
+parkour-loc:
+  world: world
+
+  min-x: 50
+  max-x: 60
+
+  min-y: 45
+  max-y: 60
+
+  min-z: 30
+  max-z: 50
