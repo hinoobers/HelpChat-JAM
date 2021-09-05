@@ -20,7 +20,7 @@ public class ParkourListener implements Listener {
         if(e.getFrom().distance(e.getTo()) == 0) return;
         if(!data.isParkourEnabled()) return;
 
-        if(data.getNextBlockLocation().getX() == e.getTo().getX() && data.getNextBlockLocation().getZ() == e.getTo().getZ() && data.getNextBlockLocation().getY() == e.getTo().getY() - 1){
+        if(data.getNextBlockLocation().distance(e.getTo()) <= 1.2){
             if(e.getTo().clone().subtract(0,1,0).getBlock().getType() == Material.GOLD_BLOCK){
                 e.getPlayer().sendMessage(ChatColor.GOLD + "+1");
                 data.setNextBlockLocation(ParkourPlugin.INSTANCE.parkourManager.generateNextBlock(e.getPlayer().getLocation()));

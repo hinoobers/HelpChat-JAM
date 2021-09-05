@@ -1,9 +1,6 @@
 package org.hinoob.manager;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.hinoob.ParkourPlugin;
 import org.hinoob.data.PlayerData;
@@ -45,6 +42,7 @@ public class ParkourManager {
         double z = RandomUtils.generateRandomNumberBetween(minZ, maxZ);
 
         final Location location = new Location(bukkitWorld, x, y, z);
+        location.clone().subtract(0,1,0).getBlock().setType(Material.GOLD_BLOCK);
 
         player.teleport(location);
 
@@ -60,18 +58,20 @@ public class ParkourManager {
 
         // We can't set the y too high, or too low, i'll just make it a 50/50
 
-        if(RandomUtils.generateRandomNumberBetween(0,100) > 50){
+        if(RandomUtils.generateRandomNumberBetween(0,100) > 75){
             y = currentLocation.getY() - 1;
+        }else if(RandomUtils.generateRandomNumberBetween(0,100) < 50){
+            y = currentLocation.getY() - 2;
         }else{
-            y = currentLocation.getY() + 1;
+            y = currentLocation.getY();
         }
 
         double x = currentLocation.getX(), z = currentLocation.getZ();
 
         if(RandomUtils.generateRandomNumberBetween(0,100) > 50){
-            x += RandomUtils.generateRandomNumberBetween(1,3);
+            x += RandomUtils.generateRandomNumberBetween(2,4);
         }else{
-            z += RandomUtils.generateRandomNumberBetween(1,3);
+            z += RandomUtils.generateRandomNumberBetween(2,4);
         }
 
         return new Location(currentLocation.getWorld(), x, y, z);
