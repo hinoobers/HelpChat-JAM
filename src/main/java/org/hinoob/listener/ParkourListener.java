@@ -1,5 +1,6 @@
 package org.hinoob.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -21,9 +22,16 @@ public class ParkourListener implements Listener {
         if(!data.isParkourEnabled()) return;
 
         if(data.getNextBlockLocation().distance(e.getTo()) <= 1.2){
-            if(e.getTo().clone().subtract(0,1,0).getBlock().getType() == Material.GOLD_BLOCK){
+            if(e.getTo().clone().subtract(0,1,0).getBlock().getType() == Material.EMERALD_BLOCK){
                 e.getPlayer().sendMessage(ChatColor.GOLD + "+1");
+                e.getTo().clone().subtract(0,1,0).getBlock().setType(Material.REDSTONE_BLOCK);
                 data.setNextBlockLocation(ParkourPlugin.INSTANCE.parkourManager.generateNextBlock(e.getPlayer().getLocation()));
+
+                for(String commandString : ParkourPlugin.INSTANCE.configManager.getStringList("commands.on-checkpoint")){
+                    commandString = commandString.replaceAll("%player%", e.getPlayer().getName());
+
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandString);
+                }
             }
         }
     }

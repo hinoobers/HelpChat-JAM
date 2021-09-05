@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.hinoob.ParkourPlugin;
 
 import java.io.File;
+import java.util.List;
 
 public class ConfigManager {
 
@@ -40,4 +41,6 @@ public class ConfigManager {
     public String getString(String key){
         return fileConfiguration.getString(key);
     }
+
+    public List<String> getStringList(String key){ return fileConfiguration.getStringList(key); }
 }

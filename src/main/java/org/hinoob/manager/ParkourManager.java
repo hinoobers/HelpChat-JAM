@@ -43,6 +43,7 @@ public class ParkourManager {
 
         final Location location = new Location(bukkitWorld, x, y, z);
         location.clone().subtract(0,1,0).getBlock().setType(Material.GOLD_BLOCK);
+        data.parkourBlocks.add(location.clone().subtract(0,1,0).getBlock());
 
         player.teleport(location);
 
@@ -63,6 +64,10 @@ public class ParkourManager {
         }else if(RandomUtils.generateRandomNumberBetween(0,100) < 50){
             y = currentLocation.getY() - 2;
         }else{
+            y = currentLocation.getY();
+        }
+
+        if(y > currentLocation.getY() && y - currentLocation.getY() > 1){
             y = currentLocation.getY();
         }
 

@@ -1,6 +1,8 @@
 package org.hinoob.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,12 +30,21 @@ public class ParkourCommand implements CommandExecutor {
                         }else{
                             ParkourPlugin.INSTANCE.parkourManager.startParkour(player);
                             player.sendMessage(ChatColor.GREEN + "Parkour started");
+
+                            for(String commandString : ParkourPlugin.INSTANCE.configManager.getStringList("commands.on-start")){
+                                commandString = commandString.replaceAll("%player%", player.getName());
+
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commandString);
+                            }
                         }
                     }else if(strings[0].equalsIgnoreCase("end")) {
                         if(!data.isParkourEnabled()){
                             player.sendMessage(ChatColor.RED + "You don't have a active parkour running!");
                         }else{
                             data.setParkourEnabled(false);
+                            data.parkourBlocks.forEach(b -> b.setType(Material.AIR));
+                            data.parkourBlocks.clear();
+
                             player.teleport(data.getNextBlockLocation());
                             player.sendMessage(ChatColor.GREEN + "Parkour ended");
                         }

@@ -20,6 +20,8 @@ public class ParkourPlugin extends JavaPlugin {
     @Override
     public void onEnable(){
         INSTANCE = this;
+        this.saveDefaultConfig();
+
         getLogger().info("Successfully enabled!");
 
         // Set the available managers

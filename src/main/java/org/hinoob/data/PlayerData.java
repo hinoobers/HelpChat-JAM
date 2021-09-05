@@ -2,7 +2,11 @@ package org.hinoob.data;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerData {
 
@@ -10,6 +14,7 @@ public class PlayerData {
 
     private boolean parkourEnabled = false;
     private Location startPosition, nextBlockLocation;
+    public List<Block> parkourBlocks = new ArrayList<>();
 
 
     public PlayerData(Player player){
@@ -39,10 +44,14 @@ public class PlayerData {
     }
 
     public void setNextBlockLocation(Location loc){
-        if(loc.getBlock().getType() != Material.GOLD_BLOCK){
-            loc.getBlock().setType(Material.GOLD_BLOCK);
+        if(loc.getBlock().getType() != Material.EMERALD_BLOCK){
+            loc.getBlock().setType(Material.EMERALD_BLOCK);
         }
         this.nextBlockLocation = loc;
+
+        if(parkourBlocks.stream().noneMatch(b -> b.getX() == loc.getX() && b.getY() == loc.getY() && b.getZ() == loc.getZ())){
+            parkourBlocks.add(loc.getBlock());
+        }
     }
 
     // Getters & Setters

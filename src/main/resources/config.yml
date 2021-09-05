@@ -9,3 +9,10 @@ parkour-loc:
 
   min-z: 30
   max-z: 50
+commands:
+  on-checkpoint:
+    - ''
+    - ''
+  on-start:
+    - ''
+    - ''
